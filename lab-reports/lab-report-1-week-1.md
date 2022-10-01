@@ -151,3 +151,6 @@ For example:
 This will copy WhereAmI.java to OtherMain.java, compile OtherMain.java and then run WhereAmI.class.
 
 Lastly, you can use the up arrow key to go to the previous command that you have used.
+
+
+![Image](https://Rudra17382.github.io/cse15l-lab-reports/Pictures/lab-report-week-1/multiple-commands-at-once.PNG)
