@@ -56,7 +56,7 @@ Note: You will probably need to reset your account password to login.
 
 ## Trying Some Commands
 
-![Image](https://Rudra17382.github.io/cse15l-lab-reports/Pictures/lab-report-week-1/trying-out-some-new-commands.PNG)
+![Image](https://Rudra17382.github.io/cse15l-lab-reports/Pictures/lab-report-week-1/trying-out-new-commands.PNG)
 
 Here:  
 Ls -lat also tells you when you made the files.
