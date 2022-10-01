@@ -52,7 +52,7 @@ Note: The code snippets here are taken from [course website](https://ucsd-cse15l
 
 Note: You will probably need to reset your account password to login.
 
-![Image](https://Rudra17382.github.io/cse15l-lab-reports/Pictures/lab-report-week-1/first-ssh-login.PNG)
+![Image](https://Rudra17382.github.io/cse15l-lab-reports/Pictures/lab-report-week-1/first-shh-login.PNG)
 
 ## Trying Some Commands
 
