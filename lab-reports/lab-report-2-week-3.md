@@ -292,3 +292,123 @@ When you try to add a name but then mistype the s to something else or forget it
 ![searchFail1.jpg](../Pictures/lab-report-week-3/searchFail1.jpg)
 
 When you try to search a name but then mistype the s to something else or forget it by mistake.
+
+## Part 2: Solving Bugs from the given files in week 3
+
+### Reverse In Place:
+
+#### Failure Inducing Input: 
+{3, 4, 5} (In general, any array with a size greater than 1)
+
+#### Test code:
+```
+    @Test
+    public void testReverseInPlace1() {
+        int[] input1 = { 3, 4, 5 };
+        ArrayExamples.reverseInPlace(input1);
+        assertArrayEquals(new int[]{ 5, 4, 3 }, input1);
+    }
+```
+#### Symptom:
+{5, 4, 5}  
+The last element should be 3 but it is 5 instead. With bigger lists it would look worse like {3, 4, 5, 6, 7} would look like {7, 6, 5, 6, 7} instead of {7, 6, 5, 4, 3}   
+Junit Output:
+
+![2reverseInPlace](../Pictures/lab-report-week-3/2reverseInPlace.jpg)
+
+#### Bugs:
+1: The code does not copy over arr[i] to arr[arr.length - i - 1] after copying arr[arr.length - i - 1] to arr[i]. For example: It results in something like this after the first iteration: {3, 4, 5, 6, 7} to {7, 4, 5, 6, 7} instead of {7, 4, 5, 6, 3}.  
+2: The code goes till the last element which is wrong. It needs to stop at the middle as it is simultaneously flipping the elements of front and back. If it keeps going then the array would be reversed midway through but then reverse the reversed version back to the original version of the array.
+
+#### Fixed Code:
+```
+ // Changes the input array to be in reversed order
+ static void reverseInPlace(int[] arr) {
+   for(int i = 0; i < (arr.length / 2); i += 1) {
+       int temp = arr[i];
+       arr[i] = arr[arr.length - i - 1];
+       arr[arr.length - i - 1] = temp;
+   }
+ }
+ ```
+	
+### Reversed:
+
+#### Failure Inducing Input:  
+
+{3, 4, 5} (In general a non-empty array)
+	
+#### Test Code:
+```
+    @Test
+    public void testReversed1() {
+   	    int[] input1 = { 3, 4, 5 };
+   	    assertArrayEquals(new int[]{ 5, 4, 3 }, ArrayExamples.reversed(input1));
+    }
+```
+#### Symptom:
+{0, 0, 0}  
+Every element is replaced with 0 when it should be {5, 4, 3}. 
+Junit Output:  
+![2reversed](../Pictures/lab-report-week-3/2reversed.jpg)
+
+#### Bug:
+It is replacing arr elements with newArray elements which is the wrong way around. newArray elements are all 0’s so the output becomes all 0’s. Instead it should be replacing newArray elements with arr elements. It returns arr which is the original non reversed array instead of newArray which is the new reversed array.
+#### Fixed Code:
+```
+ // Returns a *new* array with all the elements of the input array in reversed
+ // order
+ static int[] reversed(int[] arr) {
+   int[] newArray = new int[arr.length];
+   for(int i = 0; i < arr.length; i += 1) {
+       newArray[arr.length - i - 1] = arr[i];
+   }
+   return newArray;
+ }
+ ```
+
+
+### averageWithoutLowest:
+
+#### Failure Inducing Input:
+{1.0, 1.0, 1.0, 2.0, 3.0}  (in general, any array or an array with multiple instances of the lowest value.
+#### Test Code:
+```
+    @Test
+    public void testAverageWithoutLowest() {
+        double[] input1 = { 1.0, 1.0, 1.0, 2.0, 3.0 };
+        assertEquals(2.5, ArrayExamples.averageWithoutLowest(input1), 0);
+    }
+```
+
+#### Symptom:
+It returns 1.25 when instead the average of 2, 3 (1 is removed since its the lowest value) is 2.5.  
+Junit Output:
+![avg](../Pictures/lab-report-week-3/2avg.jpg)
+
+#### Bug:
+The average calculation is done wrong. It divides by the total number of elements in the whole array while it should be dividing by the total number of elements in the array when all the instances of the lowest element are removed. There is no count for how many lowest values are removed. There can be multiple instances of the lowest value therefore there is no way to know how many instances of lowest values were removed and what to divide by to find out the average Alternatively, you can keep a track of all the elements that are kept while calculating the sum and divide the sum by that number to get the desired result.
+
+#### Fixed Code:
+```
+    // Averages the numbers in the array (takes the mean), but leaves out the
+    // lowest number when calculating. Returns 0 if there are no elements or just
+    // 1 element in the array
+    static double averageWithoutLowest(double[] arr) {
+        if(arr.length < 2) { return 0.0; }
+        double lowest = arr[0];
+        for(double num: arr) {
+            if(num < lowest) { lowest = num; }
+        }
+        double sum = 0;
+        int lengthCount = 0;
+        for(double num: arr) {
+            if(num != lowest) {
+                sum += num;
+                lengthCount++;
+            }
+        }
+        return sum / lengthCount;
+    }
+}
+```
