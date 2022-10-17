@@ -295,6 +295,8 @@ When you try to search a name but then mistype the s to something else or forget
 
 ## Part 2: Solving Bugs from the given files in week 3
 
+## Reverse and Average:
+
 ### Reverse In Place:
 
 #### Failure Inducing Input: 
@@ -412,3 +414,85 @@ The average calculation is done wrong. It divides by the total number of element
     }
 }
 ```
+
+## List Tests:
+
+### filter:
+
+#### Failure Inducing Input:
+
+{"David Bowie", "Thom Yorke", "Kevin Shields", "Lou Reed"} (In general any list with size > 1)
+
+#### Test Code:
+```
+    @Test
+    public void testFilter() {
+        String[] stringCheckerArray = {"David Bowie", "Thom Yorke", "Kevin Shields", "Lou Reed"};
+        ArrayList<String> stringCheckerArrayList = new ArrayList<String>(
+            Arrays.asList(stringCheckerArray)
+        );
+        StringCheckerClass sc = new StringCheckerClass(stringCheckerArrayList);
+        List<String> input1 = new ArrayList<String>();
+        List<String> expected = new ArrayList<String>();
+
+        input1.add("Julian Casablancas");
+        input1.add("David Bowie");
+        input1.add("Thom Yorke");
+        input1.add("Kevin Shields");
+        input1.add("Lou Reed");
+
+        expected.add("David Bowie");
+        expected.add("Thom Yorke");
+        expected.add("Kevin Shields");
+        expected.add("Lou Reed");
+
+        assertThat(ListExamples.filter(input1, sc), is(expected));
+    }
+```
+
+#### Symptom:
+{"Lou Reed", "Kevin Shields", "Thom Yorke", "David Bowie"} Returns the list reversed intead of the correct order.
+Junit Output:
+
+![2listFilter](../Pictures/lab-report-week-3/2listFilter.jpg)
+
+#### Bug:
+The filter function goes through the list in normal order but inserts correct found strings from stringer checker as the first element of the new list. This means that later found elements will be first in the list meanwhile earlier found elements will be later which reverses the order of the output list. To fix this we simply need to remove 0 from the original code.
+
+#### Fixed Code:
+class StringCheckerClass implements StringChecker {
+
+    ArrayList<String> stringCheck;
+
+    public StringCheckerClass(ArrayList<String> stringCheck) {
+        this.stringCheck = stringCheck;
+    }
+
+    public void setStringCheck(ArrayList<String> stringCheck) {
+        this.stringCheck = stringCheck;
+    }
+    
+    public boolean checkString(String stringToBeChecked) {
+
+        return stringCheck.contains(stringToBeChecked);
+    }
+
+    class ListExamples {
+
+        // Returns a new list that has all the elements of the input list for which
+        // the StringChecker returns true, and not the elements that return false, in
+        // the same order they appeared in the input list;
+        static List<String> filter(List<String> list, StringChecker sc) {
+            List<String> result = new ArrayList<>();
+            for(String s: list) {
+                if(sc.checkString(s)) {
+                    result.add(s);
+                }
+            }
+            return result;
+        }
+        ...
+        ...
+        ...
+        ...
+    }
