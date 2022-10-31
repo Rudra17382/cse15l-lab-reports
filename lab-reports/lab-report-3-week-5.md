@@ -392,7 +392,7 @@ rudrarupani@Rudras-MacBook-Pro technical %
 
 Lets say that we wanted all the journal entires excluding the 20000 series, then we can chain grep two times using pipe to achieve the result. The first grep filters out all the non journal entries and the second one filters out all the 0020 entries. In the end we are left with journal entries that do not start with 0020
 
-### Example c)
+### Example c)
 ```
 rudrarupani@Rudras-MacBook-Pro technical % find government/Media | grep -i -v "legal"
 government/Media
@@ -565,7 +565,7 @@ rudrarupani@Rudras-MacBook-Pro technical % find biomed | grep -i -v "147" | grep
 105
 ```
 
-Finding all the files with 1471, 1472, etc. and all the files without them. Finding files with "gb" and then finding files that excluse "147" and "gb" as well. We ca do a lot of creative filtering here
+Finding all the files with 1471, 1472, etc. and all the files without them. Finding files with "gb" and then finding files that exclude "147" and "gb" as well. We ca do a lot of creative filtering here
 
 ### Example c)
 ```
