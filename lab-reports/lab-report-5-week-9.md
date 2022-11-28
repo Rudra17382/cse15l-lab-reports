@@ -111,7 +111,7 @@ This is the correct code and it will get full points.
 
 5. We change directories to student directory. standard output for cd is changing the directory and displaying nothing. Standard error is directory not existing "cd: no such file or directory:"
 
-6. We not start compiling the code and sending its output using a pipe | to a text file named output1.txt. Standard output is nothing if code compiles, standard error gives compilation error.
+6. We not start compiling the code and sending its output using a pipe to a text file named output1.txt. Standard output is nothing if code compiles, standard error gives compilation error.
 
 7. We have an if statement that checks for exit code and if its 0 then we display a compile error message and give the student a 0. This does not happen here
 
@@ -121,7 +121,7 @@ This is the correct code and it will get full points.
 
 10. In this If statement, we use grep to check if the running output has "OK" in it. If so then we can be sure all tests passed and the student is awarded all points. score variable is updated with + 30 and then a message is displayed through echo
 
-11. In the elif statement, it checks if the output2.txt file has "Tests run:|Failures:" which means that it ran tests and failed some. In this case, first the result variable stores the line containing "Tests run:|Failures:". Then, tests variable isolates the numbers given in this line using a regular expression. After which, the tests_run variable stores the first number in tests meanwhile fail variable stores the second number in tests. pass variable stores tests_run - fail which is all the tests that have passed. In all the above commands, instead of storing their outputs to a file and running the commands on them, the variables are first echoed and the result of echo variable is piped to the command being run. Eg: echo $tests gives the variable from the tests variable whose output is piped using | to cut command cut -d' ' -f1 which selets the first word which is the first number in our case. This first number is stores in tests_run.
+11. In the elif statement, it checks if the output2.txt file has "Tests run:Failures:" which means that it ran tests and failed some. In this case, first the result variable stores the line containing "Tests run:Failures:". Then, tests variable isolates the numbers given in this line using a regular expression. After which, the tests_run variable stores the first number in tests meanwhile fail variable stores the second number in tests. pass variable stores tests_run - fail which is all the tests that have passed. In all the above commands, instead of storing their outputs to a file and running the commands on them, the variables are first echoed and the result of echo variable is piped to the command being run. Eg: echo $tests gives the variable from the tests variable whose output is piped using  to cut command cut -d' ' -f1 which selets the first word which is the first number in our case. This first number is stores in tests_run.
 
 12. Score is calculated as 5 + pass/tests_run which in our case is 25 since we ran filterCorrect, orderCorrect but failed correctOrder2. So 10/10 for filter correct, 10/10 for order correct and 0/10 for order correct 2. This is updated in score
 
