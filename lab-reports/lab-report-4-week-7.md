@@ -132,7 +132,7 @@ Open file: ```vim DocSearchServer.java ```
 
 ### Challenge Task
 
-Since this is the challenge task and is not technically required, Ill just show the commands and the end result.
+Since this is the challenge task and is not technically required, I'll just show the commands and the end result.
 
 ```
 :set number
